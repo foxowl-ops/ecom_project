@@ -1,0 +1,71 @@
+{% extends "products/base.html" %}
+{% load static %}
+{% block content %}
+<div class="mt-5 pt-4">
+    <div class="container dark-grey-text">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+            <div class="container">
+                <div class="row">
+                    <h3 style="margin-left: 15px;" >{{product.name}}</h3>
+                </div>
+            </div>
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+            <img src="{{ product.image.url }}" class="img-fluid" alt="">
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+            <!--Content-->
+            <div class="p-4">
+
+            <div class="mb-3">
+                <a href="">
+                <span class="badge ">{{product.category}}</span>
+                </a>
+                <a href="">
+                <span class="badge red mr-1">{{product.discount}}</span>
+                </a>
+            </div>
+
+            <p class="lead">
+                <span class="mr-1">
+                <del>{{product.bottom_price}}</del>
+                </span>
+                <span>{{product.discount}} </span>
+            </p>
+
+            <p class="lead font-weight-bold">Description</p>
+
+            <p>{{product.description}}</p>
+
+            <form class="d-flex justify-content-left">
+                <!-- Default input -->
+                <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+                <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
+                <i class="fa fa-cart-plus"></i>
+                </button>
+
+            </form>
+
+            </div>
+            <!--Content-->
+
+        </div>
+        <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+        <hr>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="{% static 'products/css/bootstrap4.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+<title>Ecommerce Website</title>
+</head>
+
+<body>
+<div class="container-fluid bg-dark header-top d-none d-md-block" id="accountbar">
+	<div class="container">
+		<div class="row text-light pt-2 pb-2">
+			<div class="col-md-5"><i class="fa fa-envelope-o" aria-hidden="true"></i>username</div>
+			<div class="col-md-3">
+				
+			</div>
+			<div class="col-md-2"><i class="fa fa-user-o" aria-hidden="true"></i> Account</div>
+			<div class="col-md-2"><i class="fa fa-cart-plus" aria-hidden="true"></i> My Cart</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid bg-black" id="optionbar">
+	<nav class="container navbar navbar-expand-lg navbar-dark bg-black">
+  <a class="navbar-brand" href="#">ELIXIR</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#">Contact Us</a>
+      </li>
+      {% block dropdown %}
+      {% endblock %}
+    </ul>
+    {% block search_bar %}
+    {% endblock %}
+  </div>
+</nav>
+</div>
+<div id="arrange">
+  just to arrange
+</div>
+{% block content %}
+{% endblock %}
+<footer>
+	<div class="container-fluid pt-5 bg-dark text-light">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row">
+						<h5>Meta</h5>
+					</div>
+					<div class="row mb-4">
+						<div class="underline bg-light" style="width: 50px"></div>
+					</div>
+					<p><i class="fa fa-chevron-right" aria-hidden="true"></i> Register</p>
+					<p><i class="fa fa-chevron-right" aria-hidden="true"></i> Log In</p>
+					<p><i class="fa fa-chevron-right" aria-hidden="true"></i> Enter RSS</p>
+					<p><i class="fa fa-chevron-right" aria-hidden="true"></i> Comments</p>
+					<p><i class="fa fa-chevron-right" aria-hidden="true"></i> Webseotips</p>
+				</div>
+			</div>
+		</div>
+	</div> 
+</footer>
+{% block js %}
+{% endblock %}
+
+</body>
+</html>
