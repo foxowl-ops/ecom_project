@@ -16,6 +16,10 @@ class Product(models.Model):
     image = models.ImageField()
     bottom_price = models.IntegerField( blank=True)
 
+    def get_product_price_small(self,*args, **kwargs):
+        return self.option_set.all()[0].unit_price
+    def get_product_price_big(self,*args, **kwargs):
+        return self.option_set.all()[1].unit_price
 
     def __str__(self):
         return self.name

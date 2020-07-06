@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products',
     'phonenumber_field',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -124,7 +125,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 # user
 
 AUTH_USER_MODEL = 'account.User'
+
+#auth_link
+LOGIN_REDIRECT_URL ="/"
+LOGOUT_REDIRECT_URL = "/"
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#authentication_backend
+AUTHENTICATION_BACKENDS=[
+    'account.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]

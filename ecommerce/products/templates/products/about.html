@@ -1,0 +1,24 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="hero-wrap hero-wrap-2" id="image-container" style="background-image: url({% static 'products/images/bg_2.jpg' %});" data-stellar-background-ratio="0.5">
+</section>
+<hr>
+<div >
+    <div class="row">
+        <div class="col-lg-6 col-sm-12" id="aboutimage" style="background-image: url({% static 'products/images/about.jpg' %});">
+        </div>
+        <div class="col-lg-6 col-sm-12 wrap-about pl-md-5 ftco-animate py-5">
+            <div class="heading-section">
+                <h1>About Us</h1>
+                <span class="subheading">Since 2005</span>
+                <h2 class="mb-4">Desire meets a new Taste</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultrices mi non metus malesuada, non condimentum felis posuere. Cras eu aliquam felis. Donec in felis sapien. Aenean aliquet nisi nibh. .</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultrices mi non metus malesuada, non condimentum felis posuere. Cras eu aliquam felis. Donec in felis sapien. Aenean aliquet nisi nibh. .</p>
+            </div>
+        </div>
+    </div>
+</div>
+<hr style="padding-top: 20px;">
+{% endblock %}

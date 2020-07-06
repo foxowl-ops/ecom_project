@@ -28,16 +28,24 @@
 
             <div class="mb-3">
                 <a href="">
-                <span class="badge ">{{product.category}}</span>
+                <span class="badge_category">{{product.category}}</span>
                 </a>
-                <a href="">
-                <span class="badge red mr-1">{{product.discount}}</span>
-                </a>
+                <!-- <a href="">
+                <span class="badge">{{product.discount}}</span>
+                </a> -->
             </div>
 
             <p class="lead">
                 <span class="mr-1">
-                <del>{{product.bottom_price}}</del>
+                <span>For 250 ML-</span>
+                <del>{{product.get_product_price_small }}</del>
+                </span>
+                <span>{{product.discount}} </span>
+            </p>
+            <p class="lead">
+                <span class="mr-1">
+                <span>For 750 ML-</span>
+                <del>{{product.get_product_price_big }}</del>
                 </span>
                 <span>{{product.discount}} </span>
             </p>
@@ -45,11 +53,17 @@
             <p class="lead font-weight-bold">Description</p>
 
             <p>{{product.description}}</p>
+            <select class="browser-default custom-select" style="margin-bottom: 10px;">
+                <option selected>Choose Bottle Size</option>
+                {% for size in sizes %}
+                    <option value="1">{{size}}</option>
+                {% endfor %}
+            </select>
 
             <form class="d-flex justify-content-left">
                 <!-- Default input -->
                 <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-                <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
+                <button class="btn btn-primary btn-md my-0 p" type="submit" style="margin-left: 10px;">Add to cart
                 <i class="fa fa-cart-plus"></i>
                 </button>
 
@@ -65,6 +79,27 @@
         <!--Grid row-->
 
         <hr>
+        <div class="container pt-5">
+            <div class="row">
+                <h3>Similar Products</h3>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                {% for product in same_category_products|slice:":4" %}
+                    <div class ="col-lg-3 col-md-4 col-sm-1" , id="card-col" >
+                        <a href="{% url 'single-product' product.id %}"><div class="card">
+                            <img src="{{ product.image.url }}" class="card-img-top">
+                            <div class="card-body">
+                                <h5>{{ product.name }}</h5>
+                                <h7>starts from {{ product.get_product_price_small }}&#8377</h7>
+                                <button class="btn btn-danger"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
+                            </div>
+                        </div></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
 
     </div>
 </div>

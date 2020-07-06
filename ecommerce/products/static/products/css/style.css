@@ -41,20 +41,43 @@
 #to-detail button{
     cursor: pointer;
 }
-#accountbar{
+/* #accountbar{
     position: fixed;
     z-index: 1;
-}
+} */
 #optionbar{
     position: fixed;
     z-index: 1;
-    margin-top: 40px;
+    /* margin-top: 40px; */
 }
 #arrange{
-    height:96px;
+    height:40px;
     width: 100%;
 }
 .img-fluid{
     height: 300px;
     width: 200px;
+}
+body button{
+    cursor: pointer;
+}
+#card-col a{
+    text-decoration: none;
+}
+#image-container{
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    margin-bottom: 20px;
+}
+#aboutimage{
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#wrap-element{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center
 }

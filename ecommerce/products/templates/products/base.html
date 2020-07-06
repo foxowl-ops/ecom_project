@@ -10,43 +10,48 @@
 </head>
 
 <body>
-<div class="container-fluid bg-dark header-top d-none d-md-block" id="accountbar">
-	<div class="container">
-		<div class="row text-light pt-2 pb-2">
-			<div class="col-md-5"><i class="fa fa-envelope-o" aria-hidden="true"></i>username</div>
-			<div class="col-md-3">
-				
-			</div>
-			<div class="col-md-2"><i class="fa fa-user-o" aria-hidden="true"></i> Account</div>
-			<div class="col-md-2"><i class="fa fa-cart-plus" aria-hidden="true"></i> My Cart</div>
-		</div>
-	</div>
-</div>
-
 <div class="container-fluid bg-black" id="optionbar">
 	<nav class="container navbar navbar-expand-lg navbar-dark bg-black">
-  <a class="navbar-brand" href="#">ELIXIR</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<a class="navbar-brand" href="{% url 'home' %}">ELIXIR</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-  </button>
+	</button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About Us</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="#">Contact Us</a>
-      </li>
-      {% block dropdown %}
-      {% endblock %}
+    	<li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+    	</li>
+    	<li class="nav-item">
+        <a class="nav-link" href="{% url 'about' %}">About Us</a>
+    	</li>
+    	<li class="nav-item">
+        <a class="nav-link " href="{% url 'contact' %}">Contact Us</a>
+		</li>
+		{% if not user.is_authenticated %}
+    	<li class="nav-item">
+		<a class="nav-link " href="{% url 'signup' %}">Sign Up!</a>
+		</li>
+		<li class="nav-item">
+		<div class="nav-link">|</div>
+		</li>
+		<li class="nav-item">
+		<a class="nav-link " href="{% url 'login' %}">Log in</a>
+		</li>
+		{% else %}
+		<li class="nav-item">
+		<a class="nav-link " href="{% url 'detailuser' user.id %}">{{request.user.username}}</a>
+		</li>
+		{% endif %}
+    	{% block dropdown %}
+    	{% endblock %}
     </ul>
     {% block search_bar %}
-    {% endblock %}
-  </div>
+	{% endblock %}
+	<li class="nav-item">
+        <a class="nav-link "  href="#"><i class="fa fa-cart-plus" aria-hidden="true"></i>My Cart</a>
+	</li>
+	</div>
 </nav>
 </div>
 <div id="arrange">
