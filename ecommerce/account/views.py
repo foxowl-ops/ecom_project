@@ -42,21 +42,21 @@ class UserDetailsView(LoginRequiredMixin,DetailView):
     #     return context
 
 
-class UserUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
-    login_url = reverse_lazy("login")
+class UserUpdateView(UpdateView):
+    # login_url = reverse_lazy("login")
     model = get_user_model()
-    fields = ['first_name','last_name','email','pic','bio','groups']
+    fields = ('username','first_name','last_name','email', 'contact_no', 'address1','address2')    
     # form_class = SignUpForm
     pk_url_kwarg = 'id'
     template_name = "registration/signup.html"
     
-    def test_func(self,*args, **kwargs):
-        user = get_user_model().objects.get(id = self.kwargs.get('id'))
-        print(user)
-        if user == self.request.user:
-            return True
-        else:
-            return False
+    # def test_func(self,*args, **kwargs):
+    #     user = get_user_model().objects.get(id = self.kwargs.get('id'))
+    #     print(user)
+    #     if user == self.request.user:
+    #         return True
+    #     else:
+    #         return False
 
 class UserDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     login_url = reverse_lazy('login')

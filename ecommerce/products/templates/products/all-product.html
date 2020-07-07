@@ -1,18 +1,18 @@
 {% extends 'products/base.html' %}
 {% load static %}
 {% block dropdown %}
-      <li class="nav-item dropdown">
+        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Categories
+            Categories
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">All</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Vodka</a>
-          <a class="dropdown-item" href="#">Whiskey</a>
-          <a class="dropdown-item" href="#">Rum</a>
+            <a class="dropdown-item" href="{% url 'all-products' %}">All</a>
+            <div class="dropdown-divider"></div>
+            {% for category in categories %}
+                <a class="dropdown-item" href="{% url 'category_specific' category.id %}">{{ category.name}}</a>
+            {% endfor %}
         </div>
-      </li>
+        </li>
 {% endblock %}
 {% block search_bar %}
 <form class="form-inline my-2 my-lg-0" method="GET" action="url">

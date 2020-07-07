@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from products.models import Option, Product, Size
+from products.models import Option, Product, Size, Category
 from products.forms import ContactUsForm
 from django.urls import reverse_lazy
 from django.db.models import Q
@@ -12,7 +12,7 @@ class ProductListView(generic.ListView):
     template_name = "products/index.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        products = Product.objects.all()
+        products = Product.objects.all().order_by('-discount')
         context['products'] = products
         return context
 
@@ -24,8 +24,8 @@ class AllProductListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        options = Option.objects.filter(bottle_size__size = '250 ML')
-        context['options'] = options
+        categories = Category.objects.all()
+        context['categories'] = categories
         return context
 
 
@@ -35,14 +35,17 @@ class SearchView(generic.ListView):
     template_name = "products/all-product.html"
     def get_queryset(self, **kwargs):
         queryset = Product.objects.filter(Q(name__contains= self.request.GET.get('search')))
-        print(self.request.GET.get('search'))
-        print(queryset)
         return queryset
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)
 #         categories = Category.objects.all()
 #         context['categories'] = categories
 # #         return context
+
+def category_specific(request,id):
+    categories = Category.objects.all()
+    products = Product.objects.filter(category = id)
+    return render(request,'products/all-product.html',context = {'products':products, 'categories':categories})
 
 class SingleProductDetailView(generic.DetailView):
     model = Product
@@ -54,9 +57,11 @@ class SingleProductDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         prod = kwargs.get('object')
         cat = prod.category
-        same_category_products = Product.objects.filter(category = cat)
+        same_category_products = Product.objects.filter(category = cat )
+        diff_category_products = Product.objects.exclude(category = cat)
         sizes = Size.objects.all()
         context['same_category_products'] = same_category_products
+        context['diff_category_products'] = diff_category_products
         context['sizes'] = sizes
         return context
 

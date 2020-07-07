@@ -27,7 +27,7 @@
             <div class="p-4">
 
             <div class="mb-3">
-                <a href="">
+                <a href="{% url 'category_specific' product.category.id %}">
                 <span class="badge_category">{{product.category}}</span>
                 </a>
                 <!-- <a href="">
@@ -87,6 +87,28 @@
         <div class="container mt-5">
             <div class="row">
                 {% for product in same_category_products|slice:":4" %}
+                    <div class ="col-lg-3 col-md-4 col-sm-1" , id="card-col" >
+                        <a href="{% url 'single-product' product.id %}"><div class="card">
+                            <img src="{{ product.image.url }}" class="card-img-top">
+                            <div class="card-body">
+                                <h5>{{ product.name }}</h5>
+                                <h7>starts from {{ product.get_product_price_small }}&#8377</h7>
+                                <button class="btn btn-danger"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
+                            </div>
+                        </div></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+        <div class="container pt-5">
+            <div class="row">
+                <h3>Other tastes You can try</h3>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                {% for product in diff_category_products|slice:":4" %}
                     <div class ="col-lg-3 col-md-4 col-sm-1" , id="card-col" >
                         <a href="{% url 'single-product' product.id %}"><div class="card">
                             <img src="{{ product.image.url }}" class="card-img-top">

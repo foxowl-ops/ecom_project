@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
+from django.urls import reverse
 # Create your models here.
 
 class User(AbstractUser):
@@ -16,3 +17,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.user
+
+    def get_absolute_url(self):
+        return reverse("detailuser", args = [self.id])

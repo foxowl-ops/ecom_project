@@ -14,7 +14,6 @@ class Product(models.Model):
     category= models.ForeignKey(Category, on_delete= models.CASCADE)
     discount= models.FloatField()
     image = models.ImageField()
-    bottom_price = models.IntegerField( blank=True)
 
     def get_product_price_small(self,*args, **kwargs):
         return self.option_set.all()[0].unit_price
