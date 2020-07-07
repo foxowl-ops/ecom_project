@@ -4,6 +4,7 @@ from products.models import Option, Product, Size, Category
 from products.forms import ContactUsForm
 from django.urls import reverse_lazy
 from django.db.models import Q
+from django.shortcuts import redirect
 # Create your views here.
 class ProductListView(generic.ListView):
     model = Option
@@ -76,3 +77,10 @@ class ContactUsView(generic.FormView):
 
 class SuccessView(generic.TemplateView):
     template_name = "products/success-response.html"
+
+def AddToCartView(request, id):
+    print(request.GET)
+    request.session['size'] = request.GET.get('size')
+    request.session['qty'] = request.GET.get('qty')
+    print(request.session.get('size'))
+    return redirect('single-product', id)

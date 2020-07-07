@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
 # Create your models here.
 
 class Category(models.Model):
@@ -44,3 +44,25 @@ class Option(models.Model):
 
 #     def __str__(self):
 #         return str(self.product)
+
+class Cart(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+
+class Item(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+
+class CIM(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item,on_delete=models.CASCADE)
+
+class Order(models.Model):
+    statuses = [("O","Ordered"), ("S","Shipped"),("C","Cancelled"),("D","Delivered"),("R","Returned"),("L","Lost")]
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True, blank=True)
+    shipment_date = models.DateTimeField(auto_now_add=False, blank=True)
+    status = models.CharField(max_length=1, choices=statuses, default = "O" )
+
+class OIM(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE) 
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+

@@ -20,3 +20,9 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse("detailuser", args = [self.id])
+
+# class Cart(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+# class Item(models.Model):
+#     product = 

@@ -53,19 +53,33 @@
             <p class="lead font-weight-bold">Description</p>
 
             <p>{{product.description}}</p>
-            <select class="browser-default custom-select" style="margin-bottom: 10px;">
-                <option selected>Choose Bottle Size</option>
+            <!-- <form action="url" method="GET">
+                {% csrf_token %}
                 {% for size in sizes %}
-                    <option value="1">{{size}}</option>
+                <label class="radio-inline">
+                    <input type="radio" name="optsize" >{{size}}
+                </label>
                 {% endfor %}
-            </select>
+                <select class="browser-default custom-select" style="margin-bottom: 10px;">
+                    <option selected>Choose Bottle Size</option>
+                    {% for size in sizes %}
+                        <option >{{size}}</option>
+                    {% endfor %}
+                </select>
+            </form> -->
 
-            <form class="d-flex justify-content-left">
+            <form class="d-flex justify-content-left" action="{% url 'add-to-cart' product.id %}" method="GET">
+                <select class="browser-default custom-select" name="size" style="margin-bottom: 10px;">
+                    <option selected>Choose Bottle Size</option>
+                    {% for size in sizes %}
+                        <option >{{size}}</option>
+                    {% endfor %}
+                </select>
                 <!-- Default input -->
-                <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-                <button class="btn btn-primary btn-md my-0 p" type="submit" style="margin-left: 10px;">Add to cart
+                <input type="number" value="1" name="qty"  aria-label="Search" class="form-control" style="width: 100px">
+                <a href="{% url 'add-to-cart' product.id %}"><button class="btn btn-primary btn-md my-0 p" type="submit" style="margin-left: 10px;">Add to cart
                 <i class="fa fa-cart-plus"></i>
-                </button>
+                </button></a>
 
             </form>
 
@@ -122,7 +136,6 @@
                 {% endfor %}
             </div>
         </div>
-
     </div>
 </div>
 {% endblock %}
