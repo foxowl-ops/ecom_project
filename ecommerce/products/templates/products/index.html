@@ -13,6 +13,7 @@
 	<ol class="carousel-indicators">
 		<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 		<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+		<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 	</ol>
 	<div class="carousel-inner">
 		<div class="carousel-item active">
@@ -31,7 +32,14 @@
 			<a href="{% url 'all-products' %}"><button class="btn btn-info btn-lg">Shop Now.</button></a>
 		</div>
 		</div>
-		
+		<div class="carousel-item">
+			<img class="d-block w-100" src="static/products/images/bacardi_special.jpg" alt="Third slide">
+			<div class="carousel-caption d-none d-md-block">
+			<h1>Enjoy the EXCLUSIVE</h1>
+			<p>From Bacardi</p>
+				<a href="{% url 'single-product' 10 %}"><button class="btn btn-info btn-lg">Shop Now.</button></a>
+			</div>
+		</div>
 	</div>
 	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -82,7 +90,9 @@
 					<img src="{{ product.image.url }}" class="card-img-top">
 					<div class="card-body">
 						<h5>{{ product.name }}</h5>
-						<h7>starts from {{ product.get_product_price_small }}&#8377</h7>
+						<p><span></span><del>{{product.original_price }}&#8377</del>
+						{{product.discounted_price}}&#8377 </span></p>
+						<!-- <h7>starts from {{ product.unit_price }}&#8377</h7> -->
 						<button class="btn btn-danger"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
 					</div>
 				</div></a>

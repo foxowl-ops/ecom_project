@@ -16,7 +16,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS=['email','contact_no']
 
     def __str__(self):
-        return self.user
+        return self.username
 
     def get_absolute_url(self):
         return reverse("detailuser", args = [self.id])

@@ -1,7 +1,10 @@
 from django.contrib import admin
-from products.models import Category, Product, Option, Size
+from products.models import Category, Product, CIM, Item, Order,OIM, Cart
 admin.site.register(Category)
-admin.site.register(Size)
 admin.site.register(Product)
-admin.site.register(Option)
+admin.site.register(Cart)
+admin.site.register(CIM)
+admin.site.register(Item)
+admin.site.register(Order)
+admin.site.register(OIM)
 # admin.site.register(ProductImage)

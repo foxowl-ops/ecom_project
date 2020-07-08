@@ -37,17 +37,9 @@
 
             <p class="lead">
                 <span class="mr-1">
-                <span>For 250 ML-</span>
-                <del>{{product.get_product_price_small }}</del>
-                </span>
-                <span>{{product.discount}} </span>
-            </p>
-            <p class="lead">
-                <span class="mr-1">
-                <span>For 750 ML-</span>
-                <del>{{product.get_product_price_big }}</del>
-                </span>
-                <span>{{product.discount}} </span>
+                <span>Buy for</span>
+                <p><span></span><del>{{product.original_price }}&#8377</del>
+                {{product.discounted_price}}&#8377 </span></p>
             </p>
 
             <p class="lead font-weight-bold">Description</p>
@@ -69,12 +61,11 @@
             </form> -->
 
             <form class="d-flex justify-content-left" action="{% url 'add-to-cart' product.id %}" method="GET">
-                <select class="browser-default custom-select" name="size" style="margin-bottom: 10px;">
-                    <option selected>Choose Bottle Size</option>
+                <!-- <select class="browser-default custom-select" name="size" style="margin-bottom: 10px;">
                     {% for size in sizes %}
                         <option >{{size}}</option>
                     {% endfor %}
-                </select>
+                </select> -->
                 <!-- Default input -->
                 <input type="number" value="1" name="qty"  aria-label="Search" class="form-control" style="width: 100px">
                 <a href="{% url 'add-to-cart' product.id %}"><button class="btn btn-primary btn-md my-0 p" type="submit" style="margin-left: 10px;">Add to cart
@@ -106,7 +97,9 @@
                             <img src="{{ product.image.url }}" class="card-img-top">
                             <div class="card-body">
                                 <h5>{{ product.name }}</h5>
-                                <h7>starts from {{ product.get_product_price_small }}&#8377</h7>
+                                <p><span></span><del>{{product.original_price }}&#8377</del>
+                                {{product.discounted_price}}&#8377 </span></p>
+                                <!-- <h7>starts from {{ product.get_product_price_small }}&#8377</h7> -->
                                 <button class="btn btn-danger"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
                             </div>
                         </div></a>
@@ -128,7 +121,9 @@
                             <img src="{{ product.image.url }}" class="card-img-top">
                             <div class="card-body">
                                 <h5>{{ product.name }}</h5>
-                                <h7>starts from {{ product.get_product_price_small }}&#8377</h7>
+                                <p><span></span><del>{{product.original_price }}&#8377</del>
+                                {{product.discounted_price}}&#8377 </span></p>
+                                <!-- <h7>starts from {{ product.get_product_price_small }}&#8377</h7> -->
                                 <button class="btn btn-danger"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
                             </div>
                         </div></a>
