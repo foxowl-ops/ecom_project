@@ -61,17 +61,10 @@
             </form> -->
 
             <form class="d-flex justify-content-left" action="{% url 'add-to-cart' product.id %}" method="GET">
-                <!-- <select class="browser-default custom-select" name="size" style="margin-bottom: 10px;">
-                    {% for size in sizes %}
-                        <option >{{size}}</option>
-                    {% endfor %}
-                </select> -->
-                <!-- Default input -->
                 <input type="number" value="1" name="qty"  aria-label="Search" class="form-control" style="width: 100px">
                 <a href="{% url 'add-to-cart' product.id %}"><button class="btn btn-primary btn-md my-0 p" type="submit" style="margin-left: 10px;">Add to cart
                 <i class="fa fa-cart-plus"></i>
                 </button></a>
-
             </form>
 
             </div>
@@ -97,10 +90,9 @@
                             <img src="{{ product.image.url }}" class="card-img-top">
                             <div class="card-body">
                                 <h5>{{ product.name }}</h5>
+                                <h6>{{product.category}}</h6>
                                 <p><span></span><del>{{product.original_price }}&#8377</del>
                                 {{product.discounted_price}}&#8377 </span></p>
-                                <!-- <h7>starts from {{ product.get_product_price_small }}&#8377</h7> -->
-                                <button class="btn btn-danger"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
                             </div>
                         </div></a>
                     </div>
@@ -121,10 +113,9 @@
                             <img src="{{ product.image.url }}" class="card-img-top">
                             <div class="card-body">
                                 <h5>{{ product.name }}</h5>
+                                <h6>{{product.category}}</h6>
                                 <p><span></span><del>{{product.original_price }}&#8377</del>
                                 {{product.discounted_price}}&#8377 </span></p>
-                                <!-- <h7>starts from {{ product.get_product_price_small }}&#8377</h7> -->
-                                <button class="btn btn-danger"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
                             </div>
                         </div></a>
                     </div>

@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.views import generic
+from django.contrib.auth import get_user_model
 from products.models import Product, Category, Cart, CIM, OIM, Item, Order
 from products.forms import ContactUsForm
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.shortcuts import redirect
+from django.db.models import Sum
 # Create your views here.
 class ProductListView(generic.ListView):
     model = Product
@@ -78,13 +80,12 @@ class SuccessView(generic.TemplateView):
 def AddToCartView(request, id):
     if not request.user.is_authenticated:
         print(request.GET)
-        request.session['id'] = [request.GET.get('size'),request.GET.get('qty')]
-        print(request.session.get('id'))
+        request.session['cart'] = {id : request.GET.get('qty')}
+        request.session['cart'] = {id : request.GET.get('qty')}
         return redirect('single-product', id)
     else:
         product = Product.objects.get(id = id)
         cart_obj = Cart.objects.get_or_create(user = request.user)
-        print(request.GET.get('size'))
         # if cart_obj:
         #     print(cart_obj)
         #     item_obj = Item.objects.create(product = product, quantity = request.GET.get('qty'))
@@ -92,7 +93,7 @@ def AddToCartView(request, id):
         # else:
         #     cart_obj = Cart.objects.create(user = request.user)
         #     print(cart_obj)
-        item_obj = Item.objects.create(product = product, size = request.GET.get('size') ,quantity = request.GET.get('qty'))
+        item_obj = Item.objects.create(product = product ,quantity = request.GET.get('qty'))
         cim_obj = CIM.objects.create(cart = cart_obj[0], item = item_obj)
         return redirect('single-product', id)
 
@@ -100,6 +101,37 @@ class CartView(generic.View):
     def get(self, request):
         if request.user.is_authenticated:
             cart_id = Cart.objects.get(user = request.user)
-            items = CIM.objects.filter(cart = cart_id)
-            context = {'items':items}
+            cims = CIM.objects.filter(cart = cart_id)
+            context = {'cims':cims}
+            total_price = cims.aggregate(total =Sum('total'))
+            total_bill = total_price.get('total')
+            print(total_bill)
+            context['total_bill'] = total_bill
             return render(request, 'products/viewcart.html', context )
+
+class AddToOrderView(generic.View):
+    def get(self, request):
+        cart_id = Cart.objects.get(user = request.user)
+        cims = CIM.objects.filter(cart = cart_id)
+        total_price = cims.aggregate(total =Sum('total'))
+        total_bill = total_price.get('total')
+        order = Order.objects.create(user=request.user, total_bill = total_bill)
+        context = {'order':order}
+        for cim in cims:
+            oim = OIM.objects.create(order=order, item = cim.item)
+        cims.delete()
+        return render(request, 'products/order-placed.html', context)
+
+class OrderView(generic.View):
+    def get(self,request, *args, **kwargs):
+        orders = Order.objects.filter(user_id = kwargs['id'])
+        context = {'orders':orders}
+        return render(request, "products/order-details.html", context)
+    
+class OrderItemView(generic.View):
+    def get(self, request,id, *args, **kwargs):
+        print(id)
+        oims = OIM.objects.filter(order_id = id)
+        print(oims)
+        context = {'oims':oims}
+        return render(request, "products/order-items.html" , context)

@@ -19,7 +19,7 @@
 				<a href="{% url 'updateuser' user.id %}"><div class="profile-card-body">Update Details</div></a>
 			</div>
 			<div class="profile-card">
-				<div class="profile-card-body">Orders</div>
+				<a href="{% url 'orderview' user.id %}"><div class="profile-card-body">Orders</div></a>
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12">

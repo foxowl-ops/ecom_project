@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'products',
     'phonenumber_field',
     'crispy_forms',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

@@ -21,29 +21,29 @@
                             <tr class="alert" role="alert">
                           <td>
                               <div class="email">
-                                  {% for cim in cims %}
-                                    <p>{{cim.item.product.name}}</p>
+                                  {% for oim in oims %}
+                                    <p>{{oim.item.product.name}}</p>
                                   {% endfor %}
                               </div>
                           </td>
                             <td>
                               <div>
-                                {% for cim in cims %}
-                                <p>{{cim.item.product.discounted_price}}</p>
+                                {% for oim in oims %}
+                                <p>{{oim.item.product.discounted_price}}</p>
                                 {% endfor %}
                               </div>
                             </td>
                             <td class="quantity">
                                 <div>
-                                    {% for cim in cims %}
-                                    <p>{{cim.item.quantity}}</p>
+                                    {% for oim in oims %}
+                                    <p>{{oim.item.quantity}}</p>
                                     {% endfor %}
                                 </div>
                             </td>
                       <td>
                             <div>
-                                {% for cim in cims %}
-                                    <p>{{cim.item.total}}</p>
+                                {% for oim in oims %}
+                                    <p>{{oim.item.total}}</p>
                                 {% endfor %}
                             </div>
                       </td>
@@ -52,27 +52,5 @@
                 </table>
             </div>
     </div>
-    <div class="row justify-content-end">
-        <div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
-            <div class="cart-total mb-3">
-                <h3>Cart Totals</h3>
-                <p class="d-flex">
-                    <span>Subtotal</span>
-                    <span> &nbsp; &#8377 {{total_bill}}</span>
-                </p>
-                <p class="d-flex">
-                    <span>Delivery</span>
-                    <span> &nbsp; &#8377 0</span>
-                </p>
-                <hr>
-                <p class="d-flex total-price">
-                    <span>Total</span>
-                    <span>  &nbsp; &#8377 {{total_bill}}</span>
-                </p>
-            </div>
-            <p class="text-center"><a href="{% url 'add_to_order' %}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
-        </div>
-    </div>
-</div>
 </section>
 {% endblock %}

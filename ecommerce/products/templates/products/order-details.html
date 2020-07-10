@@ -1,0 +1,78 @@
+{% extends "products/base.html" %}
+{% block content %}
+{% load mathfilters %}
+<section class="ftco-section" id="bill_table">
+    <div class="container">
+        <div class="row">
+            <div class="table-wrap">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr>
+                            <!-- <th>&nbsp;</th> -->
+                            <!-- <th>&nbsp;</th> -->
+                            <th>Ordered By</th>
+                            <th>Ordered date</th>
+                            <th>Delivery date</th>
+                            <th>Status</th>
+                            <th>Total Price</th>
+                            <th>Order Id</th>
+                            <th>See order details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="alert" role="alert">
+                          <td>
+                              <div class="email">
+                                {% for order in orders %}
+                                <p>{{order.user}}</p>
+                                {% endfor %}
+                              </div>
+                          </td>
+                            <td>
+                              <div>
+                                {% for order in orders %}
+                                <p>{{order.date_created}}</p>
+                                {% endfor %}
+                              </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {% for order in orders %}
+                                    <p>{{order.shipment_date}}</p>
+                                    {% endfor %}
+                                </div>
+                            </td>
+                        <td>
+                            <div>
+                                {% for order in orders %}
+                                <p>{{order.status}}</p>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="quantity">
+                            <div>
+                                {% for order in orders %}
+                                <p>{{order.total_bill}}</p>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                {% for order in orders %}
+                                <p>{{order.id}}</p>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>
+                            {% for order in orders %}
+                            <p class="text-center"><a href="{% url 'orderitemview' order.id %}" class="btn btn-primary py-1 px-1">see details</a></p>
+                            {% endfor %}
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

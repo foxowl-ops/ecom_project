@@ -35,24 +35,37 @@ class Cart(models.Model):
     def __str__(self):
         return self.user.username
 
-class Item(models.Model):
-    product = models.ForeignKey(Product,blank=True ,on_delete=models.CASCADE)
-    size = models.CharField(max_length=100)
-    quantity = models.IntegerField(blank=True)
 
-    def get_price(self, *args, **kwargs):
-        return self.product
+class Item(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    total = models.IntegerField()
+    def save(self, *args, **kwargs):
+        discount = self.product.discounted_price
+        qty = self.quantity
+        self.total = int(discount)*int(qty)
+        print(self.total)
+        super(Item, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.product.name
+
 
 class CIM(models.Model):
     cart = models.ForeignKey(Cart,blank=True, on_delete=models.CASCADE)
     item = models.ForeignKey(Item,blank=True, on_delete=models.CASCADE)
+    total = models.IntegerField(null=True)
+    def save(self, *args, **kwargs):
+        self.total = int(self.item.product.discounted_price) * int(self.item.quantity)
+        super(CIM,self).save(*args, **kwargs)
 
 class Order(models.Model):
     statuses = [("O","Ordered"), ("S","Shipped"),("C","Cancelled"),("D","Delivered"),("R","Returned"),("L","Lost")]
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,blank=True)
-    date_created = models.DateTimeField(auto_now_add=True, blank=True)
-    shipment_date = models.DateTimeField(auto_now_add=False, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    shipment_date = models.DateTimeField(auto_now_add=False, null=True)
     status = models.CharField(max_length=1, choices=statuses, default = "O" )
+    total_bill = models.IntegerField()
 
 class OIM(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE) 
