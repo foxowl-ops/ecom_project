@@ -1,4 +1,6 @@
 from django import forms
+from products.models import Comment
+from django.forms import ModelForm
 
 class ContactUsForm(forms.Form):
     name = forms.CharField(max_length=100)
@@ -9,3 +11,8 @@ class ContactUsForm(forms.Form):
         cleaned_data = super().clean()
         if not cleaned_data.get('email') and not cleaned_data.get('phone_no'):
             raise forms.ValidationError("Enter either email or phone number or both", code= 'invalid')
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['subject', 'comment', 'rate']

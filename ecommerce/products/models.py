@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from datetime import datetime, timedelta
 # Create your models here.
 
 class Category(models.Model):
@@ -67,7 +68,30 @@ class Order(models.Model):
     status = models.CharField(max_length=1, choices=statuses, default = "O" )
     total_bill = models.IntegerField()
 
+    def save(self,*args, **kwargs):
+        if self.shipment_date is None:
+            self.shipment_date = datetime.now() + timedelta(days=7)
+        super(Order, self).save(*args, **kwargs)
+
 class OIM(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE) 
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
 
+class Comment(models.Model):
+    STATUS = (
+        ('New', 'New'),
+        ('True', 'True'),
+        ('False', 'False'),
+    )
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    subject = models.CharField(max_length=50, blank=True)
+    comment = models.CharField(max_length=250,blank=True)
+    rate = models.IntegerField(default=1)
+    ip = models.CharField(max_length=20, blank=True)
+    status=models.CharField(max_length=10,choices=STATUS, default='New')
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.subject

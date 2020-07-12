@@ -39,15 +39,29 @@
                         <div class="card-body">
                             <h5>{{ product.name }}</h5>
                             <h6>{{product.category}}</h6>
-                            <p><span></span><del>{{product.original_price }}&#8377</del>
-                            {{product.discounted_price}}&#8377 </span></p>
+                            <p><span></span><del>&#8377 {{product.original_price }}</del>
+                            &#8377 {{product.discounted_price}}</span></p>
                         </div>
                     </div></a>
                 </div>
             {% endfor %}
         </div>
     </div>
-    
+</div>
+{% if is_paginated %}
+  <nav aria-label="Page navigation conatiner"></nav>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+    {% endif %}
+  </ul>
+  </nav>
+</div>
+{% endif %}
 {% endblock %}
 {% block js %}
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -1,6 +1,6 @@
 {% extends "products/base.html" %}
 {% block content %}
-{% load mathfilters %}
+{% if user.is_authenticated %}
 <section class="ftco-section" id="bill_table">
     <div class="container">
         <div class="row">
@@ -19,19 +19,19 @@
                         </thead>
                         <tbody>
                             <tr class="alert" role="alert">
-                          <td>
-                              <div class="email">
-                                  {% for cim in cims %}
-                                    <p>{{cim.item.product.name}}</p>
-                                  {% endfor %}
-                              </div>
-                          </td>
                             <td>
-                              <div>
+                                <div class="email">
+                                    {% for cim in cims %}
+                                    <p>{{cim.item.product.name}}</p>
+                                    {% endfor %}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
                                 {% for cim in cims %}
                                 <p>{{cim.item.product.discounted_price}}</p>
                                 {% endfor %}
-                              </div>
+                                </div>
                             </td>
                             <td class="quantity">
                                 <div>
@@ -40,13 +40,13 @@
                                     {% endfor %}
                                 </div>
                             </td>
-                      <td>
+                        <td>
                             <div>
                                 {% for cim in cims %}
                                     <p>{{cim.item.total}}</p>
                                 {% endfor %}
                             </div>
-                      </td>
+                        </td>
                         </tr>
                     </tbody>
                 </table>
@@ -75,4 +75,80 @@
     </div>
 </div>
 </section>
+{% else %}
+<section class="ftco-section" id="bill_table">
+    <div class="container">
+        <div class="row">
+            <div class="table-wrap">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr>
+                            <!-- <th>&nbsp;</th> -->
+                            <!-- <th>&nbsp;</th> -->
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>total</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="alert" role="alert">
+                            <td>
+                                <div class="email">
+                                    {% for item in items %}
+                                    <p>{{item.name}}</p>
+                                    {% endfor %}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                {% for pri in price %}
+                                <p>{{pri}}</p>
+                                {% endfor %}
+                                </div>
+                            </td>
+                            <td class="quantity">
+                                <div>
+                                    {% for qt in qty %}
+                                    <p>{{qt}}</p>
+                                    {% endfor %}
+                                </div>
+                            </td>
+                        <td>
+                            <div>
+                                {% for tot in total %}
+                                <p>{{tot}}</p>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
+            <div class="cart-total mb-3">
+                <h3>Cart Totals</h3>
+                <p class="d-flex">
+                    <span>Subtotal</span>
+                    <span> &nbsp; &#8377 {{total_bill}}</span>
+                </p>
+                <p class="d-flex">
+                    <span>Delivery</span>
+                    <span> &nbsp; &#8377 0</span>
+                </p>
+                <hr>
+                <p class="d-flex total-price">
+                    <span>Total</span>
+                    <span>  &nbsp; &#8377 {{total_bill}}</span>
+                </p>
+            </div>
+            <p class="text-center"><a href="{% url 'add_to_order' %}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+        </div>
+    </div>
+</div>
+</section>
+{% endif %}
 {% endblock %}
